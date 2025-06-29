@@ -1,0 +1,36 @@
+[gd_scene load_steps=8 format=3 uid="uid://bwe6mbok5iuom"]
+
+[ext_resource type="Texture2D" uid="uid://b0y5bqwwihllj" path="res://Assets/red.png" id="1_rpqav"]
+[ext_resource type="Script" uid="uid://bs3pojby3n45p" path="res://Scripts/Player.cs" id="2_kyqiw"]
+[ext_resource type="Script" uid="uid://6srdqs8aujbp" path="res://Scripts/StateEngine.cs" id="3_dewec"]
+[ext_resource type="Script" uid="uid://bi4yc1lwcaa55" path="res://Scripts/StateGround.cs" id="4_dewec"]
+[ext_resource type="Script" uid="uid://u0i1e0olhass" path="res://Scripts/StateAir.cs" id="5_5ixxa"]
+[ext_resource type="Script" uid="uid://tgp8coq7shc" path="res://Scripts/StateDebugLabel.cs" id="6_nn08x"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qbkls"]
+
+[node name="Player" type="CharacterBody2D"]
+script = ExtResource("2_kyqiw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_qbkls")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_rpqav")
+
+[node name="StateEngine" type="Node" parent="." node_paths=PackedStringArray("character")]
+script = ExtResource("3_dewec")
+character = NodePath("..")
+
+[node name="Ground" type="Node" parent="StateEngine"]
+script = ExtResource("4_dewec")
+
+[node name="Air" type="Node" parent="StateEngine"]
+script = ExtResource("5_5ixxa")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -24.0
+offset_top = -40.0
+offset_right = 24.0
+offset_bottom = -17.0
+script = ExtResource("6_nn08x")
