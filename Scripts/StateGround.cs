@@ -7,6 +7,11 @@ public partial class StateGround : State
     public override void StateInput(InputEvent @event)
     {
         if (@event.IsActionPressed("ui_jump")) TryJump();
+
+        if (@event.IsActionPressed("ui_rewind"))
+        {
+            nextState = stateEngine.states.OfType<StateRewinding>().FirstOrDefault();
+        }
     }
 
     public override void StateProcess(double delta)

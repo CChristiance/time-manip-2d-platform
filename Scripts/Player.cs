@@ -28,24 +28,29 @@ public partial class Player : CharacterBody2D
 
     private void HorizontalMovement()
     {
-    	float horizontalInput = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-    	Velocity = new Vector2(horizontalInput * speed, Velocity.Y);
+        float horizontalInput = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
+        Velocity = new Vector2(horizontalInput * speed, Velocity.Y);
     }
 
     public override void _Input(InputEvent @event)
     {
         if (@event.IsActionPressed("ui_left"))
         {
-			// Velocity = new Vector2(-speed, Velocity.Y);
+            // Velocity = new Vector2(-speed, Velocity.Y);
         }
         else if (@event.IsActionPressed("ui_right"))
         {
-			// Velocity = new Vector2(speed, Velocity.Y);
+            // Velocity = new Vector2(speed, Velocity.Y);
         }
         // PlayerFSM fsm = GetNode<PlayerFSM>("StateEngine");
         // if (@event.IsActionPressed("ui_left") || @event.IsActionPressed("ui_right") && !IsOnFloor())
         // {
         //     fsm.SetState((int)PlayerFSM.States.WALK);
         // }
+    }
+
+    public void test()
+    {
+        GD.Print("test");
     }
 }
