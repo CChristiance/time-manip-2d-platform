@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://8y07ydr2ecjk"]
+[gd_scene load_steps=9 format=3 uid="uid://8y07ydr2ecjk"]
 
 [ext_resource type="Texture2D" uid="uid://syhnp2o81ewe" path="res://Assets/blue.png" id="1_m1htj"]
+[ext_resource type="Script" uid="uid://b5fauquyphnfx" path="res://Scripts/Enemy.cs" id="1_mo1ky"]
 [ext_resource type="Script" uid="uid://6srdqs8aujbp" path="res://Scripts/StateEngine.cs" id="2_1exfc"]
 [ext_resource type="Script" uid="uid://ccm2uotfc0r18" path="res://Scripts/StateEnemyGround.cs" id="3_1exfc"]
 [ext_resource type="Script" uid="uid://b05ksamptvc1n" path="res://Scripts/StateEnemyAir.cs" id="5_mo1ky"]
@@ -11,6 +12,7 @@
 size = Vector2(32, 32)
 
 [node name="Enemy" type="CharacterBody2D"]
+script = ExtResource("1_mo1ky")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("RectangleShape2D_wovta")
@@ -18,16 +20,16 @@ shape = SubResource("RectangleShape2D_wovta")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_m1htj")
 
-[node name="StateEngine" type="Node" parent="."]
+[node name="EnemyStateEngine" type="Node" parent="."]
 script = ExtResource("2_1exfc")
 
-[node name="EnemyGround" type="Node" parent="StateEngine"]
+[node name="EnemyGround" type="Node" parent="EnemyStateEngine"]
 script = ExtResource("3_1exfc")
 
-[node name="EnemyAir" type="Node" parent="StateEngine"]
+[node name="EnemyAir" type="Node" parent="EnemyStateEngine"]
 script = ExtResource("5_mo1ky")
 
-[node name="Rewinding" type="Node" parent="StateEngine"]
+[node name="Rewinding" type="Node" parent="EnemyStateEngine"]
 script = ExtResource("5_uoxpr")
 
 [node name="Label" type="Label" parent="."]

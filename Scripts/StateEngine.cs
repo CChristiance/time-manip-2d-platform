@@ -3,28 +3,38 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-public partial class StateEngine : Node
+public abstract partial class StateEngine<T> : Node where T : CharacterBody2D
 {
-    [Export] Player character;
-    public State currentState;
-
-    public List<State> states;
-
-    public override void _Ready()
+    // [Export] CharacterBody2D character;
+    public T Character { get; private set; }
+    public void Initialize(T character)
     {
-        states = new List<State>();
+        Character = character;
+    }
+
+    public State<T> currentState;
+    public List<State<T>> states;
+
+    public void InitializeStates()
+    {
+        states = new List<State<T>>();
         foreach (Node child in GetChildren())
         {
-            if (child is State state)
+            if (child is State<T> state)
             {
                 states.Add(state);
-                state.character = character;
+                state.Initialize(Character, this);
             }
         }
         if (currentState == null && states.Count > 0)
         {
             SwitchStates(states[0]);
         }
+    }
+
+    public override void _Ready()
+    {
+        // Do nothing here; initialization is now manual from Player.cs
     }
 
     // Use state's input function
@@ -43,7 +53,7 @@ public partial class StateEngine : Node
         currentState.StateProcess(delta);
     }
 
-    public void SwitchStates(State nextState)
+    public void SwitchStates(State<T> nextState)
     {
         // State exits with its exit effect before switching
         if (currentState != null)

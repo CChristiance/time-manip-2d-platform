@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://b0y5bqwwihllj" path="res://Assets/red.png" id="1_rpqav"]
 [ext_resource type="Script" uid="uid://bs3pojby3n45p" path="res://Scripts/Player.cs" id="2_kyqiw"]
-[ext_resource type="Script" uid="uid://6srdqs8aujbp" path="res://Scripts/StateEngine.cs" id="3_dewec"]
+[ext_resource type="Script" uid="uid://da04gnxoa4lxs" path="res://Scripts/PlayerStateEngine.cs" id="3_52ee3"]
 [ext_resource type="Script" uid="uid://bi4yc1lwcaa55" path="res://Scripts/StateGround.cs" id="4_dewec"]
 [ext_resource type="Script" uid="uid://u0i1e0olhass" path="res://Scripts/StateAir.cs" id="5_5ixxa"]
 [ext_resource type="Script" uid="uid://d324yxve5spqi" path="res://Scripts/StateRewinding.cs" id="6_52ee3"]
@@ -20,17 +20,16 @@ shape = SubResource("RectangleShape2D_qbkls")
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture = ExtResource("1_rpqav")
 
-[node name="StateEngine" type="Node" parent="." node_paths=PackedStringArray("character")]
-script = ExtResource("3_dewec")
-character = NodePath("..")
+[node name="PlayerStateEngine" type="Node" parent="."]
+script = ExtResource("3_52ee3")
 
-[node name="Ground" type="Node" parent="StateEngine"]
+[node name="Ground" type="Node" parent="PlayerStateEngine"]
 script = ExtResource("4_dewec")
 
-[node name="Air" type="Node" parent="StateEngine"]
+[node name="Air" type="Node" parent="PlayerStateEngine"]
 script = ExtResource("5_5ixxa")
 
-[node name="Rewinding" type="Node" parent="StateEngine"]
+[node name="Rewinding" type="Node" parent="PlayerStateEngine"]
 script = ExtResource("6_52ee3")
 
 [node name="Label" type="Label" parent="."]

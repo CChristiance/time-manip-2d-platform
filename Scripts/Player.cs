@@ -9,12 +9,14 @@ public partial class Player : CharacterBody2D
     [Export] public float jumpHeight = -300f;
 
     // private Sprite2D sprite;
-    StateEngine stateEngine;
+    StateEngine<Player> stateEngine;
 
     public override void _Ready()
     {
         gravity = Global.Instance.globalGravity;
-        stateEngine = GetNode<StateEngine>("StateEngine");
+        stateEngine = GetNode<StateEngine<Player>>("PlayerStateEngine");
+        stateEngine.Initialize(this); // Set the Character property
+        stateEngine.InitializeStates(); // Now initialize states with correct Character
     }
 
     public override void _PhysicsProcess(double delta)

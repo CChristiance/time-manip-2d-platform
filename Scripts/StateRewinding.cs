@@ -3,18 +3,18 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-public partial class StateRewinding : State
+public partial class StateRewinding<T> : State<T> where T : CharacterBody2D
 {
-    State lastState;
+    State<T> lastState;
     public override bool canMove => false;
 
     public class RewindSnapshot
     {
         public Vector2 Position { get; set; }
         public Vector2 Velocity { get; set; }
-        public State State { get; set; }
+        public State<T> State { get; set; }
 
-        public RewindSnapshot(Vector2 position, Vector2 velocity, State state)
+        public RewindSnapshot(Vector2 position, Vector2 velocity, State<T> state)
         {
             Position = position;
             Velocity = velocity;
@@ -36,8 +36,8 @@ public partial class StateRewinding : State
     {
         if (rewindBuffer.Count > 0)
         {
-            character.Position = rewindBuffer.Last().Position;
-            character.Velocity = rewindBuffer.Last().Velocity;
+            Character.Position = rewindBuffer.Last().Position;
+            Character.Velocity = rewindBuffer.Last().Velocity;
             lastState = rewindBuffer.Last().State;
             rewindBuffer.RemoveLast();
         }
@@ -56,7 +56,7 @@ public partial class StateRewinding : State
     public override void _PhysicsProcess(double delta)
     {
         // Only add to pastPositions if not rewinding
-        if (stateEngine.currentState is not StateRewinding)
+        if (stateEngine.currentState is not StateRewinding<T>)
         {
             // Limit size of rewind duration
             if (rewindBuffer.Count >= 300)
@@ -70,9 +70,9 @@ public partial class StateRewinding : State
     // Store relevant player information at the time (position, animation frame, state, etc.)
     private void TakeSnapshot()
     {
-        Vector2 position = character.Position;
-        Vector2 velocity = character.Velocity;
-        State state = stateEngine.currentState;
+        Vector2 position = Character.Position;
+        Vector2 velocity = Character.Velocity;
+        State<T> state = stateEngine.currentState;
         RewindSnapshot snapshot = new RewindSnapshot(position, velocity, state);
         rewindBuffer.AddLast(snapshot);
     }

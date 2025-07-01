@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class StateEnemyAir : State
+public partial class StateEnemyAir : State<Enemy>
 {
     public override void OnEnter()
     {
@@ -18,7 +18,7 @@ public partial class StateEnemyAir : State
 
     public override void StateProcess(double delta)
     {
-        if (!character.IsOnFloor())
+        if (!Character.IsOnFloor())
         {
             nextState = stateEngine.states.OfType<StateEnemyGround>().FirstOrDefault();
         }

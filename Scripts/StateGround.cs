@@ -2,7 +2,7 @@ using Godot;
 using System;
 using System.Linq;
 
-public partial class StateGround : State
+public partial class StateGround : State<Player>
 {
     public override void StateInput(InputEvent @event)
     {
@@ -10,13 +10,13 @@ public partial class StateGround : State
 
         if (@event.IsActionPressed("ui_rewind"))
         {
-            nextState = stateEngine.states.OfType<StateRewinding>().FirstOrDefault();
+            nextState = stateEngine.states.OfType<StateRewinding<Player>>().FirstOrDefault();
         }
     }
 
     public override void StateProcess(double delta)
     {
-        if (!character.IsOnFloor())
+        if (!Character.IsOnFloor())
         {
             nextState = stateEngine.states.OfType<StateAir>().FirstOrDefault();
         }
@@ -34,9 +34,9 @@ public partial class StateGround : State
 
     public void TryJump()
     {
-        if (character.IsOnFloor())
+        if (Character.IsOnFloor())
         {
-            character.Velocity = new Vector2(character.Velocity.X, character.jumpHeight);
+            Character.Velocity = new Vector2(Character.Velocity.X, Character.jumpHeight);
         }
     }
 }
