@@ -3,15 +3,16 @@ using System;
 
 public partial class StateDebugLabel : Label
 {
-    StateEngine stateEngine;
+    LimboHsm limboHsm;
 
     public override void _Ready()
     {
-        stateEngine = GetParent().GetNode<StateEngine>("StateEngine");
+        limboHsm = GetNode<LimboHsm>("../LimboHSM");
     }
 
     public override void _Process(double delta)
     {
-        Text = "State: " + stateEngine.currentState.Name;
+        Text = "State: " + limboHsm.GetActiveState().Name;
+        // var temp = limboHsm.GetActiveState();
     }
 }

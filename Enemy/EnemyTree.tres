@@ -1,0 +1,9 @@
+[gd_resource type="BehaviorTree" load_steps=3 format=3 uid="uid://dfopuu2vuf8o4"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_ijkcf"]
+
+[sub_resource type="BTSequence" id="BTSequence_ijkcf"]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_ijkcf")
+root_task = SubResource("BTSequence_ijkcf")
