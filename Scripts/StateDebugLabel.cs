@@ -3,12 +3,7 @@ using System;
 
 public partial class StateDebugLabel : Label
 {
-    LimboHsm limboHsm;
-
-    public override void _Ready()
-    {
-        limboHsm = GetNode<LimboHsm>("../LimboHSM");
-    }
+    [Export] public LimboHsm limboHsm;
 
     public override void _Process(double delta)
     {

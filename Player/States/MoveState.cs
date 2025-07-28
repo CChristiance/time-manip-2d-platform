@@ -3,24 +3,35 @@ using System;
 
 public partial class MoveState : LimboState
 {
-    [Export] AnimatedSprite2D animatedSprite2D;
-    [Export] string animation;
-    float speed = 200f;
+    private AnimationPlayer _animationPlayer;
+    [Export] float speed = 200f;
+    Player player;
 
     public override void _Setup()
     {
+        player = (Player)Agent;
+        _animationPlayer = GetNode<AnimationPlayer>("../../AnimationPlayer");
     }
 
     public override void _Enter()
     {
-        // pass;
         GD.Print("Move");
-        animatedSprite2D.Play(animation);
+        _animationPlayer.Play("Walk");
     }
 
     public void _update(float delta)
     {
-        if (((Player)Agent).Velocity.IsZeroApprox())
-            GetRoot().Dispatch(EVENTFINISHED);
+        if (!player.IsOnFloor())
+        {
+            Dispatch("fall_started");
+        }
+        else if (player.isJumping)
+        {
+            Dispatch("jump_started");
+        }
+        else if (player.Velocity.IsZeroApprox())
+        {
+            Dispatch("idle_started");
+        }
     }
 }
