@@ -7,7 +7,7 @@ public partial class StateDebugLabel : Label
 
     public override void _Process(double delta)
     {
-        Text = "State: " + limboHsm.GetActiveState().Name;
+        Text = "State: " + limboHsm.GetLeafState().Name;
         // var temp = limboHsm.GetActiveState();
     }
 }

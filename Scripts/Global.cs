@@ -8,6 +8,6 @@ public partial class Global : Node
     
     public override void _Ready()
     {
-		Instance = this;
+		  Instance = this;
     }
 }

@@ -1,72 +1,126 @@
-[gd_scene load_steps=9 format=3 uid="uid://8y07ydr2ecjk"]
+[gd_scene load_steps=12 format=4 uid="uid://8y07ydr2ecjk"]
 
-[ext_resource type="Texture2D" uid="uid://chcra2g04r883" path="res://Assets/Enemy/SandbagChan/Sandbag-Chan.png" id="1_3o4wt"]
 [ext_resource type="Script" uid="uid://c7t7hk3yxu2yj" path="res://Assets/Enemy/SandbagChan/Enemy.cs" id="1_ga0yr"]
+[ext_resource type="Script" uid="uid://dqiehjyimb47" path="res://Assets/Enemy/SandbagChan/States/EnemyIdleState.cs" id="2_vbtbk"]
+[ext_resource type="PackedScene" uid="uid://cl13ej65m5se" path="res://Scenes/Hurtbox.tscn" id="3_vbtbk"]
+[ext_resource type="Script" uid="uid://cq63ubva4ebl6" path="res://Assets/Enemy/SandbagChan/States/EnemyHurtState.cs" id="3_wyvxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wovta"]
 size = Vector2(16, 40)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_epr5s"]
-atlas = ExtResource("1_3o4wt")
-region = Rect2(0, 144, 64, 48)
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vbtbk"]
+_data = PackedByteArray("AAADAAUAAAABAAAAgAAAAIAAAABSAQAAUklGRkoBAABXRUJQVlA4TD0BAAAvf8AfEBcw//M///MfgAfIsW23beBAdZCrQQmSzQ+Hdf7VOKc1oRncNiV88jvbq4j+T0D4rxpFdnxaaGxRpDFJQW1LgYmlLaAjS3wETg0xA8nUAiTDEkjZlAE9N9xAypgKqKhhmSnYhFPBcpOkz7U8YmNzYSlgW/br+oTy4Tq02G6GyD0Sjz2yW3JTN7R4AfqRbvoBfwvd+1j85B56LTdOLUuRwsQSRUTGlhBCK43lH2gU2XGJAmns0QKoR7dlx6HdwOMsA8mjSyKSXdj8zG4+3iOgwfHhVbNP96rrT+5R1yxc0OxTgC9g9O6iyFCy/ZHTZphYqL6NBqL+NHF5g/VimKXbjSHXOtuDoQzUbeNTmLi8oWXkRY/FZ9S4gLLzbm7ex6TyYFCTSlNZWkJ1eSrjUI+ldlKLTTBLfRxCAAA=")
+size_override = Vector2(128, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vonkd"]
-atlas = ExtResource("1_3o4wt")
-region = Rect2(0, 96, 64, 48)
+[sub_resource type="Animation" id="Animation_5sups"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [3]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vso2s"]
-atlas = ExtResource("1_3o4wt")
-region = Rect2(0, 48, 64, 48)
+[sub_resource type="Animation" id="Animation_7xm60"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fkela"]
-atlas = ExtResource("1_3o4wt")
-region = Rect2(0, 0, 64, 48)
+[sub_resource type="Animation" id="Animation_gsynk"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_vi685"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_epr5s")
-}],
-"loop": true,
-"name": &"downed",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vonkd")
-}],
-"loop": true,
-"name": &"hurt_back",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_vso2s")
-}],
-"loop": true,
-"name": &"hurt_front",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_fkela")
-}],
-"loop": false,
-"name": &"idle",
-"speed": 5.0
-}]
+[sub_resource type="Animation" id="Animation_wyvxf"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4rdmv"]
+_data = {
+&"Floored": SubResource("Animation_5sups"),
+&"Hurt Back": SubResource("Animation_7xm60"),
+&"Hurt Front": SubResource("Animation_gsynk"),
+&"Idle": SubResource("Animation_wyvxf")
+}
 
 [node name="Enemy" type="CharacterBody2D"]
 script = ExtResource("1_ga0yr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 4)
+position = Vector2(0, 12)
 shape = SubResource("RectangleShape2D_wovta")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-sprite_frames = SubResource("SpriteFrames_vi685")
-animation = &"idle"
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_vbtbk")
+hframes = 2
+vframes = 2
+frame = 3
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://Assets/Enemy/SandbagChan/Assets/Sprites/Sandbag-Chan.aseprite",
+"source_uid": 3450816026061161146
+}
+metadata/_aseprite_wizard_source_file_hash_ = "82cba8c11f0148692fb0d501aa015572"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_4rdmv")
+}
 
 [node name="Label" type="Label" parent="."]
 visible = false
@@ -78,7 +132,11 @@ offset_bottom = -17.0
 [node name="LimboHSM" type="LimboHSM" parent="."]
 
 [node name="EnemyIdleState" type="LimboState" parent="LimboHSM"]
+script = ExtResource("2_vbtbk")
 
 [node name="EnemyHurtState" type="LimboState" parent="LimboHSM"]
+script = ExtResource("3_wyvxf")
 
 [node name="EnemyDownedState" type="LimboState" parent="LimboHSM"]
+
+[node name="Hurtbox" parent="." instance=ExtResource("3_vbtbk")]

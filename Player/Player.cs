@@ -4,110 +4,113 @@ using System;
 public partial class Player : CharacterBody2D
 {
     // Player movement variables
-    [Export] public float speed = 200f;
+    [Export] public float speed = 300f;
     [Export] public float gravity;
     [Export] public float jumpHeight = -300f;
+    public float storedVelocity;
 
     public bool canJump = true;
     public bool canMove = true;
-    public bool isJumping = false;
-    public bool isAttacking = false;
+    // public bool isJumping = false;
+    // public bool isAttacking = false;
 
-    // [Export] public AnimatedSprite2D _animatedSprite;
     private AnimationPlayer _animationPlayer;
     private Sprite2D _sprite;
 
     // Onready state machine variables
-    private LimboHsm hsm;
-    private LimboState idleState;
-    private LimboState moveState;
-    private LimboState jumpState;
-    private LimboState fallState;
-    private LimboState landState;
-    private LimboState attackState;
+    private LimboHsm _hsm;
 
-    // private Sprite2D sprite;
-    // StateEngine stateEngine;
+    private LimboHsm _groundHsm;
+    private LimboState _idleState;
+    private LimboState _walkState;
+    private LimboState _runState;
+
+    private LimboHsm _airHsm;
+    private LimboState _fallState;
+    private LimboState _jumpState;
+    private LimboState _stompState;
+
+    private LimboState _attackState;
+    private LimboState _slideState;
 
     public override void _Ready()
     {
+        // Instantiate states
+        _hsm = GetNode<LimboHsm>("LimboHSM");
+
+        _groundHsm = GetNode<LimboHsm>("LimboHSM/GroundHSM");
+        _idleState = GetNode<LimboState>("LimboHSM/GroundHSM/IdleState");
+        _walkState = GetNode<LimboState>("LimboHSM/GroundHSM/WalkState");
+        _runState = GetNode<LimboState>("LimboHSM/GroundHSM/RunState");
+
+        _airHsm = GetNode<LimboHsm>("LimboHSM/AirHSM");
+        _fallState = GetNode<LimboState>("LimboHSM/AirHSM/FallState");
+        _jumpState = GetNode<LimboState>("LimboHSM/AirHSM/JumpState");
+        _stompState = GetNode<LimboState>("LimboHSM/AirHSM/StompState");
+
+        _attackState = GetNode<LimboState>("LimboHSM/AttackState");
+        _slideState = GetNode<LimboState>("LimboHSM/SlideState");
+
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _sprite = GetNode<Sprite2D>("Sprite2D");
-
         gravity = Global.Instance.globalGravity;
-        hsm = GetNode<LimboHsm>("LimboHSM");
-        idleState = GetNode<LimboState>("LimboHSM/IdleState");
-        moveState = GetNode<LimboState>("LimboHSM/MoveState");
-        jumpState = GetNode<LimboState>("LimboHSM/JumpState");
-        fallState = GetNode<LimboState>("LimboHSM/FallState");
-        landState = GetNode<LimboState>("LimboHSM/LandState");
-        attackState = GetNode<LimboState>("LimboHSM/AttackState");
-        // stateEngine = GetNode<StateEngine>("StateEngine");
         _InitStateMachine();
     }
 
     public void _InitStateMachine()
     {
-        hsm.InitialState = idleState;
-        hsm.AddTransition(hsm.ANYSTATE, moveState, "move_started");
-        hsm.AddTransition(hsm.ANYSTATE, idleState, "idle_started");
-        hsm.AddTransition(hsm.ANYSTATE, jumpState, "jump_started");
-        hsm.AddTransition(hsm.ANYSTATE, fallState, "fall_started");
-        hsm.AddTransition(hsm.ANYSTATE, landState, "land_started");
-        hsm.AddTransition(hsm.ANYSTATE, attackState, "attack_started");
+        _hsm.InitialState = _groundHsm;
+        _groundHsm.InitialState = _idleState;
+        _airHsm.InitialState = _fallState;
 
-        hsm.Initialize(this);
-        hsm.SetActive(true);
+        _hsm.AddTransition(_hsm.ANYSTATE, _airHsm, "to_air");
+        _hsm.AddTransition(_hsm.ANYSTATE, _groundHsm, "to_ground");
+
+        _hsm.AddTransition(_groundHsm, _attackState, "attack");
+        _hsm.AddTransition(_groundHsm, _slideState, "slide");
+        _hsm.AddTransition(_airHsm, _slideState, "slide");
+
+        _airHsm.AddTransition(_jumpState, _fallState, "fall");
+        _airHsm.AddTransition(_airHsm.ANYSTATE, _stompState, "stomp");
+
+        _groundHsm.AddTransition(_groundHsm.ANYSTATE, _idleState, "idle");
+        _groundHsm.AddTransition(_groundHsm.ANYSTATE, _walkState, "walk");
+        _groundHsm.AddTransition(_groundHsm.ANYSTATE, _runState, "run");
+
+        _hsm.Initialize(this);
+        _hsm.SetActive(true);
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        // PlayerFSM fsm = GetNode<PlayerFSM>("StateEngine");
-        // fsm._StateLogic(delta);
-        if (canMove) HorizontalMovement();
         Velocity = new Vector2(Velocity.X, Velocity.Y + gravity * (float)delta);
         MoveAndSlide();
     }
 
-    private void HorizontalMovement()
-    {
-        float horizontalInput = Input.GetActionStrength("ui_right") - Input.GetActionStrength("ui_left");
-
-        if (horizontalInput < 0)
-        {
-            _sprite.FlipH = true;
-        }
-        else if (horizontalInput > 0)
-        {
-            _sprite.FlipH = false;
-        }
-        Velocity = new Vector2(horizontalInput * speed, Velocity.Y);
-    }
-
     public override void _Input(InputEvent @event)
     {
-        if (@event.IsActionPressed("ui_left"))
-        {
-            // Velocity = new Vector2(-speed, Velocity.Y);
-        }
-        else if (@event.IsActionPressed("ui_right"))
-        {
-            // Velocity = new Vector2(speed, Velocity.Y);
-        }
-        else if (@event.IsActionPressed("ui_jump") && canJump)
-        {
-            // Velocity = new Vector2(Velocity.X, jumpHeight);
-            isJumping = true;
-        }
-        // PlayerFSM fsm = GetNode<PlayerFSM>("StateEngine");
-        // if (@event.IsActionPressed("ui_left") || @event.IsActionPressed("ui_right") && !IsOnFloor())
+        // if (canMove && (@event.IsActionPressed("left") || @event.IsActionPressed("right")))
         // {
-        //     fsm.SetState((int)PlayerFSM.States.WALK);
+        //     _groundHsm.Dispatch("walk");
         // }
-    }
+        if (canJump && @event.IsActionPressed("jump"))
+        {
+            _airHsm.InitialState = _jumpState;
+            _hsm.Dispatch("to_air");
+            _airHsm.InitialState = _fallState;
+        }
+        else if (@event.IsActionPressed("attack"))
+        {
+            _hsm.Dispatch("attack");
+        }
+        else if (@event.IsActionPressed("slide"))
+        {
+            _hsm.Dispatch("stomp");
+        }
+        else if (@event.IsActionPressed("rewind"))
+        {
+            // _hsm.Dispatch("rewind");
+        }
 
-    public void test()
-    {
-        GD.Print("test");
     }
 }

@@ -24,28 +24,33 @@ public partial class Enemy : CharacterBody2D
     public override void _Ready()
     {
         gravity = Global.Instance.globalGravity;
-        // hsm = GetNode<LimboHsm>("LimboHSM");
-        // idleState = GetNode<LimboState>("LimboHSM/IdleState");
-        // hurtState = GetNode<LimboState>("LimboHSM/HurtState");
-        // downedState = GetNode<LimboState>("LimboHSM/DownedState");
-        // stateEngine = GetNode<StateEngine>("StateEngine");
+        hsm = GetNode<LimboHsm>("LimboHSM");
+        idleState = GetNode<LimboState>("LimboHSM/EnemyIdleState");
+        hurtState = GetNode<LimboState>("LimboHSM/EnemyHurtState");
+        downedState = GetNode<LimboState>("LimboHSM/EnemyDownedState");
         _InitStateMachine();
     }
 
     public void _InitStateMachine()
     {
-        // hsm.InitialState = idleState;
-        // hsm.AddTransition(hsm.ANYSTATE, idleState, "idle_started");
-        // hsm.AddTransition(hsm.ANYSTATE, hurtState, "hurt_started");
-        // hsm.AddTransition(hsm.ANYSTATE, downedState, "downed_started");
+        hsm.InitialState = idleState;
+        hsm.AddTransition(hsm.ANYSTATE, idleState, "idle_started");
+        hsm.AddTransition(hsm.ANYSTATE, hurtState, "hurt_started");
+        hsm.AddTransition(hsm.ANYSTATE, downedState, "downed_started");
 
-        // hsm.Initialize(this);
-        // hsm.SetActive(true);
+        hsm.Initialize(this);
+        hsm.SetActive(true);
     }
 
     public override void _PhysicsProcess(double delta)
     {
-        Velocity = new Vector2(Velocity.X, Velocity.Y + gravity * (float)delta);
+        Velocity = new Vector2(Velocity.X * 0.99f, Velocity.Y + gravity * (float)delta);
         MoveAndSlide();
+    }
+
+    public void OnHit(Vector2 knockback)
+    {
+        Velocity = new Vector2(knockback.X, knockback.Y);
+        hsm.Dispatch("hurt_started");
     }
 }

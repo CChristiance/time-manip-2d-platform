@@ -1,11 +1,9 @@
 using Godot;
 using System;
 
-public partial class LandState : LimboState
+public partial class LandState : PlayerLimboState
 {
-    private AnimationPlayer _animationPlayer;
-    [Export] float speed = 200f;
-    Player player;
+    float oldSpeed;
 
     public override void _Setup()
     {
@@ -15,9 +13,10 @@ public partial class LandState : LimboState
 
     public override void _Enter()
     {
-        player.canMove = false;
-        // pass;
-        GD.Print("Land");
+        base._Enter();
+        // player.canMove = false;
+        // oldSpeed = player.speed;
+        // player.speed = speed;
         _animationPlayer.Play("Still Squat");
         _animationPlayer.AnimationFinished += _on_animation_player_animation_finished;
         // animatedSprite2D.Play(animation);
@@ -26,7 +25,9 @@ public partial class LandState : LimboState
 
     public override void _Exit()
     {
-        player.canMove = true;
+        base._Exit();
+        // player.speed = oldSpeed;
+        // player.canMove = true;
         _animationPlayer.AnimationFinished -= _on_animation_player_animation_finished;
         // animatedSprite2D.AnimationFinished -= OnAnimatedSprite2DAnimationFinished;
     }
@@ -38,7 +39,7 @@ public partial class LandState : LimboState
     private void _on_animation_player_animation_finished(StringName animName)
     {
         if (!IsActive()) return;
-        Dispatch("idle_started");
+        Dispatch("idle");
     }
 
     // public void OnAnimatedSprite2DAnimationFinished()

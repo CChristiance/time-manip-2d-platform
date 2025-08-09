@@ -1,33 +1,44 @@
 using Godot;
 using System;
 
-public partial class FallState : LimboState
+public partial class FallState : PlayerLimboState
 {
-    private AnimationPlayer _animationPlayer;
-    [Export] float speed = 200f;
-    Player player;
-
-    public override void _Setup()
-    {
-        player = (Player)Agent;
-        _animationPlayer = GetNode<AnimationPlayer>("../../AnimationPlayer");
-    }
+    [Export] float fastFallGravity = 750f;
+    float oldGravity;
 
     public override void _Enter()
     {
+        // Increase gravity when falling
+        base._Enter();
         player.canJump = false;
-        GD.Print("Falling");
-        _animationPlayer.Play("Still Air");
+        oldGravity = player.gravity;
+        player.gravity = fastFallGravity;
+        _animationPlayer.Play("Still Air"); // TODO: Change to falling animation
+        // _animationPlayer.AnimationFinished += _on_animation_player_animation_finished;
     }
 
     public override void _Exit()
     {
+        base._Exit();
+        player.gravity = oldGravity;
+        // _animationPlayer.AnimationFinished -= _on_animation_player_animation_finished;
         player.canJump = true;
+        player.storedVelocity = 0f;
     }
 
     public void _update(float delta)
     {
+        // Handle Landing
         if (player.IsOnFloor())
-            Dispatch("land_started");
+        { 
+            // _animationPlayer.Play("Still Squat"); // Skipping landing animation
+            Dispatch("to_ground");
+        }
     }
+
+    // private void _on_animation_player_animation_finished(StringName animName)
+    // {
+    //     if (!IsActive()) return;
+    //     Dispatch("to_ground");
+    // }
 }

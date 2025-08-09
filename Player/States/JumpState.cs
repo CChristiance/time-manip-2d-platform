@@ -1,52 +1,51 @@
 using Godot;
 using System;
 
-public partial class JumpState : LimboState
+public partial class JumpState : PlayerLimboState
 {
-    private AnimationPlayer _animationPlayer;
-    [Export] float speed = 200f;
-    Player player;
-
-    public override void _Setup()
-    {
-        player = (Player)Agent;
-        _animationPlayer = GetNode<AnimationPlayer>("../../AnimationPlayer");
-    }
+    bool isJumping = true;
+    [Export] float jumpDecel = 2000f;
+    float oldGravity;
 
     public override void _Enter()
     {
+        oldGravity = player.gravity;
         speed = player.speed;
-        GD.Print("Jump");
-        _animationPlayer.Play("Still Squat");
-        _animationPlayer.AnimationFinished += _on_animation_player_animation_finished;
+        // _animationPlayer.Play("Still Squat");
+        _animationPlayer.Play("Still Air");
+        player.Velocity = new Vector2(player.Velocity.X, player.jumpHeight);
+        // _animationPlayer.AnimationFinished += _on_animation_player_animation_finished;
     }
 
     public override void _Exit()
     {
+        player.gravity = oldGravity;
+        isJumping = true;
         // player.speed = speed;
-        player.isJumping = false;
-        _animationPlayer.AnimationFinished -= _on_animation_player_animation_finished;
+        // player.isJumping = false;
+        // _animationPlayer.AnimationFinished -= _on_animation_player_animation_finished;
     }
 
     public void _update(float delta)
     {
-        if (player.IsOnFloor() && !player.isJumping)
+        if (player.Velocity.Y > 0)
         {
-            Dispatch("land_started");
+            Dispatch("fall");
         }
-        else if (player.Velocity.Y > 0)
+        else if (!Input.IsActionPressed("jump"))
         {
-            Dispatch("fall_started");
+            player.gravity = jumpDecel;
+            // player.Velocity = new Vector2(player.Velocity.X, player.Velocity.Y + jumpDecel);
         }
     }
 
-    public void _on_animation_player_animation_finished(StringName animName)
-    {
-        if (!player.isJumping) return;
-        player.isJumping = false;
-        player.Velocity = new Vector2(player.Velocity.X, player.jumpHeight);
-        _animationPlayer.Play("Still Air");
-    }
+    // private void _on_animation_player_animation_finished(StringName animName)
+    // {
+    //     if (!IsActive()) return;
+    //     // player.isJumping = false;
+    //     player.Velocity = new Vector2(player.Velocity.X, player.jumpHeight);
+    //     _animationPlayer.Play("Still Air");
+    // }
 
     // public void OnAnimatedSprite2DAnimationFinished()
     // {

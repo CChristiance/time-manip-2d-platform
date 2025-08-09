@@ -1,28 +1,19 @@
 using Godot;
 using System;
 
-public partial class AttackState : LimboState
+public partial class AttackState : PlayerLimboState
 {
-    private AnimationPlayer _animationPlayer;
-    [Export] float speed = 200f;
-    Player player;
-
-    public override void _Setup()
-    {
-        player = (Player)Agent;
-        _animationPlayer = GetNode<AnimationPlayer>("../../AnimationPlayer");
-    }
-
     public override void _Enter()
     {
-        GD.Print("Attack");
+        base._Enter();
         _animationPlayer.Play("Kick 1");
         _animationPlayer.AnimationFinished += _on_animation_player_animation_finished;
     }
 
     public override void _Exit()
     {
-        player.isAttacking = false;
+        base._Exit();
+        // player.isAttacking = false;
         _animationPlayer.AnimationFinished -= _on_animation_player_animation_finished;
     }
 
@@ -30,6 +21,6 @@ public partial class AttackState : LimboState
     {
         // Exit State
         if (!IsActive()) return;
-        Dispatch("idle_started");
+        Dispatch("to_ground");
     }
 }
