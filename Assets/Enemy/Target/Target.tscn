@@ -1,0 +1,88 @@
+[gd_scene load_steps=8 format=4 uid="uid://b1t8wrcfmhj0o"]
+
+[ext_resource type="Script" uid="uid://dv7okjt7hwj3s" path="res://Assets/Enemy/Target/Target.cs" id="1_5lhx5"]
+[ext_resource type="PackedScene" uid="uid://cl13ej65m5se" path="res://Scenes/Hurtbox.tscn" id="1_tcgv5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_jwxad"]
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_tcgv5"]
+_data = PackedByteArray("AAADAAUAAAABAAAAgAAAAIAAAAAeAwAAUklGRhYDAABXRUJQVlA4TAoDAAAvf8AfEBcgEEhy2p9tDYFAkr/LjAsEkpz2Z3v+A/4V0HW2PY7rfCKsgYfVSWIZwVTZvEhXITt7KgXQRxisnE7WVfDsS7WZPYshIP23ecx/4i5LE9H/CcB/FtMhS3fI8qzTJRGr+ibJH2JU4qKoLhdXR6sJnsxGs7thM7aaRJJWEdxIjlkzUYStInEQuY1G4bOIz4opJpFntKXgVhfnaBQ5ufjOqWZy1fh8S24dyomezLSKu4E8660iuuyj02UfnW6dNcH5YZ1VU6YIfasSoW81UcSpdu9F3OPcf7Z9BPvZDubvQxRx9l5DESqARBEillJ06xydLaXo1jkmXfaHZN/cZpToyUwNPXk2KYKbyTWaUnAz2d6oVhdnXYvY3bQl+CziM5S+wuJHzUQRtpopuMQ/rSKRpNV8s5drvjOK4MlsNKDYvYFWXBRoA9kkqJOI1Xmy0mHpoBcX7QEHJ5FHwtLhf87hmTkkGF14ZuUQiMrIdb1anWC1ivBsvqrHTmMWMWOnSE95haFWBCOshqyYfmb1ZHhqSqlyrIdoSr7OqMNPtjTVZBVoS27boa9+RtnX92aAawvHg7VdMpv35qHgtksS+NIEPOuSNaMt2ctFzE1V8BX+Yt/BFRLtsYsWiis7sj+DQyFufiK3KPuwGdlH4EjRk2dIhdP3G3a3BOxDU66H7OMmF472dewSvx5U66xKdbbhlaoaRGijeci8rFrYk3ZoFe9F3O6+YM8qLHJ61ytwL+L8exQy3ouc3lXbQv3ADsVdxtPPoI0izuKbQo2XIqctviklihB9W0BfixB9W3rv1jliKABTU1lgKE1PXfYNfCHV+waBxit+9uQZnC00iZgIZ0v1TLZB894tjEApNS1iF1gIp8HvmeErRYXFh2gKm96ejALXFsIpkHhVAo5wkgBnC9gBPW1G+WcAS03FcXDYm8tSqgH45t6UsBeToAyb6cSMOUFJsVBfy6XtOygD2eiGs+6qsipPVqqbphkaqMVFq1oaDKsuiehSNybRYemg78ZkDjh8wWM/3j/I")
+size_override = Vector2(128, 128)
+
+[sub_resource type="Animation" id="Animation_7axuu"]
+length = 0.4
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 3]
+}
+
+[sub_resource type="Animation" id="Animation_5lhx5"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_7wanp"]
+_data = {
+&"Break": SubResource("Animation_7axuu"),
+&"Intact": SubResource("Animation_5lhx5")
+}
+
+[node name="Target" type="Area2D"]
+script = ExtResource("1_5lhx5")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_jwxad")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_tcgv5")
+hframes = 2
+vframes = 2
+frame = 1
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"source": "res://Assets/Enemy/Target/Target.aseprite"
+}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://Assets/Enemy/Target/Assets/Target.aseprite",
+"source_uid": 6426388441599384324
+}
+metadata/_aseprite_wizard_source_file_hash_ = "fd7b16188ea467366164c5ab287586fc"
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_7wanp")
+}
+
+[node name="Hurtbox" parent="." instance=ExtResource("1_tcgv5")]

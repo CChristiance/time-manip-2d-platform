@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://c6e67uakratkd" path="res://Scripts/Hurtbox.cs" id="1_5iwlp"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_mo2gy"]
+size = Vector2(16, 16)
 
 [node name="Hurtbox" type="Area2D"]
 collision_layer = 0

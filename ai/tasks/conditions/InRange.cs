@@ -14,8 +14,8 @@ public partial class InRange : BTCondition
 
     public override string _GenerateName()
     {
-        //return string.Format("InRange ({0}, {1}) of {2}", distanceMin, distanceMax, LimboUtility.DecorateVar(targetVar));
-        return "InRange";
+        return string.Format("InRange ({0}, {1}) of {2}", distanceMin, distanceMax, LimboUtility.DecorateVar(targetVar));
+        // return "InRange";
     }
 
     public override void _Setup()

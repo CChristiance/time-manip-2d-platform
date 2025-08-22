@@ -1,0 +1,111 @@
+[gd_scene load_steps=9 format=4 uid="uid://deqqxwa5xwsf4"]
+
+[ext_resource type="PackedScene" uid="uid://dnnmclncddpic" path="res://Assets/Enemy/EnemyGeneric.tscn" id="1_v0p8e"]
+[ext_resource type="BehaviorTree" uid="uid://6w7y75qxjrn8" path="res://Assets/Enemy/AI/MeleeEnemy.tres" id="2_mxswb"]
+[ext_resource type="Script" uid="uid://ba30f4hebuk5h" path="res://Assets/Enemy/Swordman/Swordman.cs" id="2_yc8uf"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0p8e"]
+size = Vector2(16, 48)
+
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_v0p8e"]
+_data = PackedByteArray("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")
+size_override = Vector2(480, 288)
+
+[sub_resource type="Animation" id="Animation_yc8uf"]
+length = 0.6
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6]
+}
+
+[sub_resource type="Animation" id="Animation_mxswb"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_chjxl"]
+_data = {
+&"Attack 1": SubResource("Animation_yc8uf"),
+&"Combat Idle": SubResource("Animation_mxswb")
+}
+
+[node name="CharacterBody2D" instance=ExtResource("1_v0p8e")]
+script = ExtResource("2_yc8uf")
+
+[node name="CollisionShape2D" parent="." index="0"]
+position = Vector2(0, 8)
+shape = SubResource("RectangleShape2D_v0p8e")
+
+[node name="Sprite2D" parent="." index="1"]
+texture_filter = 1
+texture = SubResource("PortableCompressedTexture2D_v0p8e")
+hframes = 3
+vframes = 3
+frame = 2
+metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
+"pending_changes": {}
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "_$",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "res://Assets/Enemy/Swordman/Swordman.aseprite",
+"source_uid": 1638755942909755458
+}
+metadata/_aseprite_wizard_source_file_hash_ = "5ef797976b1b934a3fc27969e6e8f1b7"
+
+[node name="AnimationPlayer" parent="." index="2"]
+libraries = {
+&"": SubResource("AnimationLibrary_chjxl")
+}
+
+[node name="PatrolHSM" type="LimboHSM" parent="LimboHSM" index="0"]
+
+[node name="EnemyIdleState" type="LimboState" parent="LimboHSM/PatrolHSM" index="0"]
+
+[node name="EnemyMoveState" type="LimboState" parent="LimboHSM/PatrolHSM" index="1"]
+
+[node name="HostileHSM" type="LimboHSM" parent="LimboHSM" index="1"]
+
+[node name="EnemyApproachState" type="LimboState" parent="LimboHSM/HostileHSM" index="0"]
+
+[node name="EnemyAttackState" type="LimboState" parent="LimboHSM/HostileHSM" index="1"]
+
+[node name="BTPlayer" parent="." index="4"]
+behavior_tree = ExtResource("2_mxswb")
+
+[node name="Hitbox" parent="." index="5"]
+position = Vector2(0, 8)
+
+[node name="Hurtbox" parent="." index="6"]
+position = Vector2(0, 8)
+scale = Vector2(1, 3)

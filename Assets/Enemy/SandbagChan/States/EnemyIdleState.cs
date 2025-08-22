@@ -13,6 +13,6 @@ public partial class EnemyIdleState : LimboState
 
     public override void _Enter()
     {
-        _animationPlayer.Play("Idle");
+        _animationPlayer.Play("Combat Idle");
     }
 }

@@ -37,7 +37,7 @@ public partial class StompState : PlayerLimboState
         }
         else
         {
-            player.storedVelocity = player.Velocity.Y;
+            player.storedVelocityX = player.Velocity.Y;
         }
     }
 }

@@ -5,13 +5,13 @@ public partial class EnemyHurtState : LimboState
 {
     private AnimationPlayer _animationPlayer;
     [Export] float speed = 0;
-    Enemy enemy;
+    SandbagChan enemy;
     [Export] int hitstun = 100;
     int timer;
 
     public override void _Setup()
     {
-        enemy = (Enemy)Agent;
+        enemy = (SandbagChan)Agent;
         _animationPlayer = GetNode<AnimationPlayer>("../../AnimationPlayer");
     }
 
@@ -21,12 +21,12 @@ public partial class EnemyHurtState : LimboState
         if (enemy.Velocity.X < 0)
         {
             GD.Print(enemy.Velocity.X);
-            _animationPlayer.Play("Hurt Back");
+            _animationPlayer.Play("Hurt Front");
         }
         else
         {
             GD.Print(enemy.Velocity.X);
-            _animationPlayer.Play("Hurt Front");
+            _animationPlayer.Play("Hurt Back");
         }
     }
 

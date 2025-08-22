@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://e0dxndhuih3g" path="res://Scripts/Hitbox.cs" id="1_mnb6n"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_oacc3"]
+size = Vector2(16, 16)
 
 [node name="Hitbox" type="Area2D"]
 collision_layer = 2

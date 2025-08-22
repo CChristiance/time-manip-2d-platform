@@ -23,7 +23,7 @@ public partial class FallState : PlayerLimboState
         player.gravity = oldGravity;
         // _animationPlayer.AnimationFinished -= _on_animation_player_animation_finished;
         player.canJump = true;
-        player.storedVelocity = 0f;
+        player.storedVelocityX = 0f;
     }
 
     public void _update(float delta)

@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bpfuo20303k4i"
+path="res://.godot/imported/Sandbag-Chan.aseprite-7611875bc44e33a4b7684271af88b316.res"
+
+[deps]
+
+source_file="res://Assets/Enemy/SandbagChan/Sandbag-Chan.aseprite"
+dest_files=["res://.godot/imported/Sandbag-Chan.aseprite-7611875bc44e33a4b7684271af88b316.res"]
+
+[params]
+

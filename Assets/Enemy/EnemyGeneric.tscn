@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=3 uid="uid://dnnmclncddpic"]
+
+[ext_resource type="PackedScene" uid="uid://doyurl2qvuyyt" path="res://Scenes/Hitbox.tscn" id="1_bna0x"]
+[ext_resource type="PackedScene" uid="uid://cl13ej65m5se" path="res://Scenes/Hurtbox.tscn" id="2_k4nut"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_k4nut"]
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+metadata/_aseprite_wizard_interface_config_ = {
+"pending_changes": {
+"embed_tex": true,
+"i_mode": 0,
+"keep_anim_length": false,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": false,
+"player": "AnimationPlayer",
+"scale": "1.0",
+"slice": "",
+"source": "",
+"source_uid": -1
+}
+}
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+[node name="LimboHSM" type="LimboHSM" parent="."]
+
+[node name="BTPlayer" type="BTPlayer" parent="."]
+blackboard_plan = SubResource("BlackboardPlan_k4nut")
+
+[node name="Hitbox" parent="." instance=ExtResource("1_bna0x")]
+monitoring = false
+monitorable = false
+
+[node name="Hurtbox" parent="." instance=ExtResource("2_k4nut")]
+monitoring = false
+monitorable = false

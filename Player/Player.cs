@@ -7,7 +7,8 @@ public partial class Player : CharacterBody2D
     [Export] public float speed = 300f;
     [Export] public float gravity;
     [Export] public float jumpHeight = -300f;
-    public float storedVelocity;
+    public float storedVelocityX;
+    public float storedVelocityY;
 
     public bool canJump = true;
     public bool canMove = true;
@@ -32,6 +33,8 @@ public partial class Player : CharacterBody2D
 
     private LimboState _attackState;
     private LimboState _slideState;
+    private LimboState _dashState;
+    private LimboState _wallState;
 
     public override void _Ready()
     {
@@ -50,10 +53,13 @@ public partial class Player : CharacterBody2D
 
         _attackState = GetNode<LimboState>("LimboHSM/AttackState");
         _slideState = GetNode<LimboState>("LimboHSM/SlideState");
+        _dashState = GetNode<LimboState>("LimboHSM/DashState");
+        _wallState = GetNode<LimboState>("LimboHSM/WallState");
 
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _sprite = GetNode<Sprite2D>("Sprite2D");
         gravity = Global.Instance.globalGravity;
+        AddToGroup("player");
         _InitStateMachine();
     }
 
@@ -69,6 +75,9 @@ public partial class Player : CharacterBody2D
         _hsm.AddTransition(_groundHsm, _attackState, "attack");
         _hsm.AddTransition(_groundHsm, _slideState, "slide");
         _hsm.AddTransition(_airHsm, _slideState, "slide");
+        _hsm.AddTransition(_groundHsm, _dashState, "dash");
+        _hsm.AddTransition(_airHsm, _dashState, "dash");
+        _hsm.AddTransition(_airHsm, _wallState, "wall");
 
         _airHsm.AddTransition(_jumpState, _fallState, "fall");
         _airHsm.AddTransition(_airHsm.ANYSTATE, _stompState, "stomp");
@@ -106,6 +115,10 @@ public partial class Player : CharacterBody2D
         else if (@event.IsActionPressed("slide"))
         {
             _hsm.Dispatch("stomp");
+        }
+        else if (@event.IsActionPressed("dash"))
+        {
+            _hsm.Dispatch("dash");
         }
         else if (@event.IsActionPressed("rewind"))
         {

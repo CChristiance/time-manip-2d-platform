@@ -1,6 +1,6 @@
-[gd_scene load_steps=12 format=4 uid="uid://8y07ydr2ecjk"]
+[gd_scene load_steps=10 format=4 uid="uid://8y07ydr2ecjk"]
 
-[ext_resource type="Script" uid="uid://c7t7hk3yxu2yj" path="res://Assets/Enemy/SandbagChan/Enemy.cs" id="1_ga0yr"]
+[ext_resource type="Script" uid="uid://c7t7hk3yxu2yj" path="res://Assets/Enemy/SandbagChan/SandbagChan.cs" id="1_ga0yr"]
 [ext_resource type="Script" uid="uid://dqiehjyimb47" path="res://Assets/Enemy/SandbagChan/States/EnemyIdleState.cs" id="2_vbtbk"]
 [ext_resource type="PackedScene" uid="uid://cl13ej65m5se" path="res://Scenes/Hurtbox.tscn" id="3_vbtbk"]
 [ext_resource type="Script" uid="uid://cq63ubva4ebl6" path="res://Assets/Enemy/SandbagChan/States/EnemyHurtState.cs" id="3_wyvxf"]
@@ -8,12 +8,12 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wovta"]
 size = Vector2(16, 40)
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_vbtbk"]
-_data = PackedByteArray("AAADAAUAAAABAAAAgAAAAIAAAABSAQAAUklGRkoBAABXRUJQVlA4TD0BAAAvf8AfEBcw//M///MfgAfIsW23beBAdZCrQQmSzQ+Hdf7VOKc1oRncNiV88jvbq4j+T0D4rxpFdnxaaGxRpDFJQW1LgYmlLaAjS3wETg0xA8nUAiTDEkjZlAE9N9xAypgKqKhhmSnYhFPBcpOkz7U8YmNzYSlgW/br+oTy4Tq02G6GyD0Sjz2yW3JTN7R4AfqRbvoBfwvd+1j85B56LTdOLUuRwsQSRUTGlhBCK43lH2gU2XGJAmns0QKoR7dlx6HdwOMsA8mjSyKSXdj8zG4+3iOgwfHhVbNP96rrT+5R1yxc0OxTgC9g9O6iyFCy/ZHTZphYqL6NBqL+NHF5g/VimKXbjSHXOtuDoQzUbeNTmLi8oWXkRY/FZ9S4gLLzbm7ex6TyYFCTSlNZWkJ1eSrjUI+ldlKLTTBLfRxCAAA=")
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_wyvxf"]
+_data = PackedByteArray("AAADAAUAAAABAAAAgAAAAIAAAABQAQAAUklGRkgBAABXRUJQVlA4TDwBAAAvf8AfEBcw//M///MfgAdItrW3TaSBvIME8GqyBNrvc9CcptVQTB2n/W+bQb/802EU0f8JCP9TFyLR5xBmtkOR2KAUMY0gyXSjUGaWFTBE0wOQo+EBYGbKD0AynCmQTeQH6AwqCsVGIScLskJa5KEzMci1ZcluA5S21NI3lfChitI3dbbcNPDQlN0e3NSpKC4KfAKdDfh76D2WvwNzy2onWUaKSLKciohEy6HMwj/ThUh0OX0AiR4KMHNYvNF7sDvzeADygUcWkYfeg93Pr/tAQYHBKevF3OdVL/rPbMmrDk5ZcQLKZ3bzzkSiz+GKQd6e6GZNtcRpxscaEy1fYf1e0kTZ0Nn6WjHMp6v2H2N0uynK2ocJlp/LodsCpfrOOo+xQQ3zyqGoJVhSJYRTWaXaea1EQwiHsXYq9RAC")
 size_override = Vector2(128, 128)
 
-[sub_resource type="Animation" id="Animation_5sups"]
-length = 0.1
+[sub_resource type="Animation" id="Animation_ifm1a"]
+length = 0.6
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -22,45 +22,13 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
-"values": [3]
+"values": [1, 2, 3, 4, 5, 6]
 }
 
-[sub_resource type="Animation" id="Animation_7xm60"]
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [2]
-}
-
-[sub_resource type="Animation" id="Animation_gsynk"]
-length = 0.1
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Sprite2D:frame")
-tracks/0/interp = 1
-tracks/0/loop_wrap = false
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [1]
-}
-
-[sub_resource type="Animation" id="Animation_wyvxf"]
+[sub_resource type="Animation" id="Animation_wlnym"]
 length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
@@ -78,13 +46,12 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4rdmv"]
 _data = {
-&"Floored": SubResource("Animation_5sups"),
-&"Hurt Back": SubResource("Animation_7xm60"),
-&"Hurt Front": SubResource("Animation_gsynk"),
-&"Idle": SubResource("Animation_wyvxf")
+&"Attack 1": SubResource("Animation_ifm1a"),
+&"Combat Idle": SubResource("Animation_wlnym")
 }
 
 [node name="Enemy" type="CharacterBody2D"]
+collision_layer = 0
 script = ExtResource("1_ga0yr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -93,11 +60,12 @@ shape = SubResource("RectangleShape2D_wovta")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = SubResource("PortableCompressedTexture2D_vbtbk")
+texture = SubResource("PortableCompressedTexture2D_wyvxf")
 hframes = 2
 vframes = 2
-frame = 3
+frame = 1
 metadata/_aseprite_wizard_interface_config_ = {
+"layer_section": true,
 "pending_changes": {}
 }
 metadata/_aseprite_wizard_config_ = {
@@ -115,7 +83,7 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://Assets/Enemy/SandbagChan/Assets/Sprites/Sandbag-Chan.aseprite",
 "source_uid": 3450816026061161146
 }
-metadata/_aseprite_wizard_source_file_hash_ = "82cba8c11f0148692fb0d501aa015572"
+metadata/_aseprite_wizard_source_file_hash_ = "9f2fd857fab6e9ca6968414406f28f45"
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

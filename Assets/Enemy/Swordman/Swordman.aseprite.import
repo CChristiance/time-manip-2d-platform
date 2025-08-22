@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://xl3coa2bchxy"
+path="res://.godot/imported/Swordman.aseprite-c1a04cc569579d5516339ff6095d065f.res"
+
+[deps]
+
+source_file="res://Assets/Enemy/Swordman/Swordman.aseprite"
+dest_files=["res://.godot/imported/Swordman.aseprite-c1a04cc569579d5516339ff6095d065f.res"]
+
+[params]
+

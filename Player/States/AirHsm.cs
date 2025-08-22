@@ -12,6 +12,24 @@ public partial class AirHsm : LimboHsm
         player = (Player)Agent;
     }
 
+    public override void _Enter()
+    {
+        base._Enter();
+        // Flip based on what input is held during call
+        float horizontalInput = Input.GetActionStrength("right") - Input.GetActionStrength("left");
+
+        if (horizontalInput < 0)
+        {
+            player.Scale = new Vector2(1, -1);
+            player.RotationDegrees = 180;
+        }
+        else if (horizontalInput > 0)
+        {
+            player.Scale = new Vector2(1, 1);
+            player.RotationDegrees = 0;
+        }
+    }
+
     public void _update(float delta)
     {
         // Handle aerial movement
@@ -34,5 +52,25 @@ public partial class AirHsm : LimboHsm
         {
             player.Velocity = new Vector2(newVelocity, player.Velocity.Y);
         }
+
+        // Check if touching wall
+        if (player.IsOnWall())
+        {
+            if (player.GetWallNormal().X == -1) // Face sprite left
+            {
+                player.Scale = new Vector2(1, -1);
+                player.RotationDegrees = 180;
+            }
+            else // Face sprite right
+            {
+                player.Scale = new Vector2(1, 1);
+                player.RotationDegrees = 0;
+            }
+
+            Dispatch("wall");
+        }
+
+        // Store Y velocity
+        player.storedVelocityY = player.Velocity.X;
     }
 }

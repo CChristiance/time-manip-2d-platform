@@ -1,7 +1,7 @@
 using Godot;
 using System;
 
-public partial class Enemy : CharacterBody2D
+public partial class SandbagChan : CharacterBody2D
 {
     [Export] public float speed = 200f;
     [Export] public float gravity;

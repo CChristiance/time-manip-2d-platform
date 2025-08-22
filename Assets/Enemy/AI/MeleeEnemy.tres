@@ -1,0 +1,35 @@
+[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://6w7y75qxjrn8"]
+
+[ext_resource type="Script" uid="uid://clx3y1y3wk7lw" path="res://ai/tasks/conditions/InRange.cs" id="1_cmx1y"]
+[ext_resource type="Script" uid="uid://dqmpgdiwv2ip1" path="res://ai/tasks/actions/GetFirstInGroup.cs" id="2_oewvc"]
+[ext_resource type="Script" uid="uid://jcinfm3umnde" path="res://ai/tasks/actions/Pursue.cs" id="2_ttau1"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_oewvc"]
+
+[sub_resource type="BTAction" id="BTAction_ttau1"]
+script = ExtResource("2_oewvc")
+group = &"player"
+outputVar = &"target"
+
+[sub_resource type="BTAction" id="BTAction_w75fm"]
+script = ExtResource("2_ttau1")
+targetVar = &"target"
+speedVar = &"speed"
+approachDistance = 100.0
+
+[sub_resource type="BTSequence" id="BTSequence_a5phw"]
+children = [SubResource("BTAction_ttau1"), SubResource("BTAction_w75fm")]
+
+[sub_resource type="BTCondition" id="BTCondition_cmx1y"]
+_enabled = false
+script = ExtResource("1_cmx1y")
+distanceMin = 0.0
+distanceMax = 1000.0
+targetVar = "Player"
+
+[sub_resource type="BTSelector" id="BTSelector_w75fm"]
+children = [SubResource("BTSequence_a5phw"), SubResource("BTCondition_cmx1y")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_oewvc")
+root_task = SubResource("BTSelector_w75fm")
