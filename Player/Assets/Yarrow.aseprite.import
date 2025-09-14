@@ -1,0 +1,14 @@
+[remap]
+
+importer="aseprite_wizard.plugin.noop"
+type="PackedDataContainer"
+uid="uid://bjxv7eoheiehn"
+path="res://.godot/imported/Yarrow.aseprite-7a88b486fefa17d625173c3635edf980.res"
+
+[deps]
+
+source_file="res://Player/Assets/Yarrow.aseprite"
+dest_files=["res://.godot/imported/Yarrow.aseprite-7a88b486fefa17d625173c3635edf980.res"]
+
+[params]
+

@@ -1,19 +1,19 @@
-[gd_scene load_steps=10 format=4 uid="uid://8y07ydr2ecjk"]
+[gd_scene load_steps=13 format=4 uid="uid://8y07ydr2ecjk"]
 
 [ext_resource type="Script" uid="uid://c7t7hk3yxu2yj" path="res://Assets/Enemy/SandbagChan/SandbagChan.cs" id="1_ga0yr"]
 [ext_resource type="Script" uid="uid://dqiehjyimb47" path="res://Assets/Enemy/SandbagChan/States/EnemyIdleState.cs" id="2_vbtbk"]
-[ext_resource type="PackedScene" uid="uid://cl13ej65m5se" path="res://Scenes/Hurtbox.tscn" id="3_vbtbk"]
+[ext_resource type="PackedScene" uid="uid://cl13ej65m5se" path="res://Scenes/Components/Hurtbox.tscn" id="3_vbtbk"]
 [ext_resource type="Script" uid="uid://cq63ubva4ebl6" path="res://Assets/Enemy/SandbagChan/States/EnemyHurtState.cs" id="3_wyvxf"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wovta"]
 size = Vector2(16, 40)
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_wyvxf"]
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_wlnym"]
 _data = PackedByteArray("AAADAAUAAAABAAAAgAAAAIAAAABQAQAAUklGRkgBAABXRUJQVlA4TDwBAAAvf8AfEBcw//M///MfgAdItrW3TaSBvIME8GqyBNrvc9CcptVQTB2n/W+bQb/802EU0f8JCP9TFyLR5xBmtkOR2KAUMY0gyXSjUGaWFTBE0wOQo+EBYGbKD0AynCmQTeQH6AwqCsVGIScLskJa5KEzMci1ZcluA5S21NI3lfChitI3dbbcNPDQlN0e3NSpKC4KfAKdDfh76D2WvwNzy2onWUaKSLKciohEy6HMwj/ThUh0OX0AiR4KMHNYvNF7sDvzeADygUcWkYfeg93Pr/tAQYHBKevF3OdVL/rPbMmrDk5ZcQLKZ3bzzkSiz+GKQd6e6GZNtcRpxscaEy1fYf1e0kTZ0Nn6WjHMp6v2H2N0uynK2ocJlp/LodsCpfrOOo+xQQ3zyqGoJVhSJYRTWaXaea1EQwiHsXYq9RAC")
 size_override = Vector2(128, 128)
 
-[sub_resource type="Animation" id="Animation_ifm1a"]
-length = 0.6
+[sub_resource type="Animation" id="Animation_axs5r"]
+length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -22,13 +22,45 @@ tracks/0/path = NodePath("Sprite2D:frame")
 tracks/0/interp = 1
 tracks/0/loop_wrap = false
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
-"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
 "update": 1,
-"values": [1, 2, 3, 4, 5, 6]
+"values": [3]
 }
 
-[sub_resource type="Animation" id="Animation_wlnym"]
+[sub_resource type="Animation" id="Animation_m1ntm"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [2]
+}
+
+[sub_resource type="Animation" id="Animation_pmsmd"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_ifm1a"]
 length = 0.1
 loop_mode = 1
 tracks/0/type = "value"
@@ -46,9 +78,14 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_4rdmv"]
 _data = {
-&"Attack 1": SubResource("Animation_ifm1a"),
-&"Combat Idle": SubResource("Animation_wlnym")
+&"Floored": SubResource("Animation_axs5r"),
+&"Hurt Back": SubResource("Animation_m1ntm"),
+&"Hurt Front": SubResource("Animation_pmsmd"),
+&"Idle": SubResource("Animation_ifm1a")
 }
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wlnym"]
+height = 48.0
 
 [node name="Enemy" type="CharacterBody2D"]
 collision_layer = 0
@@ -60,10 +97,9 @@ shape = SubResource("RectangleShape2D_wovta")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
-texture = SubResource("PortableCompressedTexture2D_wyvxf")
+texture = SubResource("PortableCompressedTexture2D_wlnym")
 hframes = 2
 vframes = 2
-frame = 1
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
 "pending_changes": {}
@@ -80,7 +116,7 @@ metadata/_aseprite_wizard_config_ = {
 "player": "AnimationPlayer",
 "scale": "1.0",
 "slice": "",
-"source": "res://Assets/Enemy/SandbagChan/Assets/Sprites/Sandbag-Chan.aseprite",
+"source": "res://Assets/Enemy/SandbagChan/Sandbag-Chan.aseprite",
 "source_uid": 3450816026061161146
 }
 metadata/_aseprite_wizard_source_file_hash_ = "9f2fd857fab6e9ca6968414406f28f45"
@@ -108,3 +144,7 @@ script = ExtResource("3_wyvxf")
 [node name="EnemyDownedState" type="LimboState" parent="LimboHSM"]
 
 [node name="Hurtbox" parent="." instance=ExtResource("3_vbtbk")]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 8)
+shape = SubResource("CapsuleShape2D_wlnym")

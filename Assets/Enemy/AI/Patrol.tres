@@ -1,0 +1,32 @@
+[gd_resource type="BehaviorTree" load_steps=9 format=3 uid="uid://c3lr1us750i5n"]
+
+[ext_resource type="Script" uid="uid://dqmpgdiwv2ip1" path="res://ai/tasks/actions/GetFirstInGroup.cs" id="1_fk1o2"]
+[ext_resource type="Script" uid="uid://clx3y1y3wk7lw" path="res://ai/tasks/conditions/InRange.cs" id="2_6typ6"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_64jdn"]
+
+[sub_resource type="BTAction" id="BTAction_6typ6"]
+script = ExtResource("1_fk1o2")
+group = &"player"
+outputVar = &"target"
+
+[sub_resource type="BTCondition" id="BTCondition_xhxue"]
+script = ExtResource("2_6typ6")
+distanceMin = 0.0
+distanceMax = 300.0
+targetVar = &"target"
+
+[sub_resource type="BBNode" id="BBNode_6typ6"]
+resource_name = "."
+saved_value = NodePath(".")
+
+[sub_resource type="BTCallMethod" id="BTCallMethod_xhxue"]
+node = SubResource("BBNode_6typ6")
+method = &"Hostile"
+
+[sub_resource type="BTSequence" id="BTSequence_xhxue"]
+children = [SubResource("BTAction_6typ6"), SubResource("BTCondition_xhxue"), SubResource("BTCallMethod_xhxue")]
+
+[resource]
+blackboard_plan = SubResource("BlackboardPlan_64jdn")
+root_task = SubResource("BTSequence_xhxue")

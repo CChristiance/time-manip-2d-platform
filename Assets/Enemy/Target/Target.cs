@@ -1,26 +1,29 @@
 using Godot;
 using System;
 
-public partial class Target : Area2D
+public partial class Target : EnemyGeneric
 {
-    AnimationPlayer _animationPlayer;
-    Sprite2D _sprite2D;
-
+    private AnimationPlayer _animationPlayer;
     public override void _Ready()
     {
+        gravity = 0f;
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _animationPlayer.Play("Intact");
-        // _animationPlayer.AnimationFinished += _OnAnimationFinished;
-        _sprite2D = GetNode<Sprite2D>("Sprite2D");
+        base._Ready();
     }
 
-    public void OnHit(Vector2 knockback)
+    public override void OnHit(int damage, int stagger, Vector2 knockback)
     {
         _animationPlayer.Play("Break");
     }
 
-    // private void _OnAnimationFinished(StringName animName);
-    // {
-        
-    // }
+    public override void _PhysicsProcess(double delta)
+    {
+        return;
+    }
+
+    public override void _InitStateMachine()
+    {
+        // throw new NotImplementedException();
+    }
 }

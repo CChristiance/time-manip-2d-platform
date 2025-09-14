@@ -1,19 +1,22 @@
-[gd_scene load_steps=9 format=4 uid="uid://deqqxwa5xwsf4"]
+[gd_scene load_steps=19 format=4 uid="uid://deqqxwa5xwsf4"]
 
 [ext_resource type="PackedScene" uid="uid://dnnmclncddpic" path="res://Assets/Enemy/EnemyGeneric.tscn" id="1_v0p8e"]
 [ext_resource type="BehaviorTree" uid="uid://6w7y75qxjrn8" path="res://Assets/Enemy/AI/MeleeEnemy.tres" id="2_mxswb"]
 [ext_resource type="Script" uid="uid://ba30f4hebuk5h" path="res://Assets/Enemy/Swordman/Swordman.cs" id="2_yc8uf"]
+[ext_resource type="BehaviorTree" uid="uid://c3lr1us750i5n" path="res://Assets/Enemy/AI/Patrol.tres" id="3_chjxl"]
+[ext_resource type="Script" uid="uid://ebs41maxfc1m" path="res://Assets/Enemy/CommonStates/Stagger.cs" id="5_5ppvl"]
+[ext_resource type="PackedScene" uid="uid://c2tgwfwkcrp87" path="res://Scenes/Components/Health.tscn" id="5_bulmw"]
+[ext_resource type="PackedScene" uid="uid://n2jy0qqr7fx8" path="res://Scenes/Components/Posture.tscn" id="6_t0m6b"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0p8e"]
-size = Vector2(16, 48)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_chjxl"]
+height = 48.0
 
-[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_v0p8e"]
-_data = PackedByteArray("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")
+[sub_resource type="PortableCompressedTexture2D" id="PortableCompressedTexture2D_chjxl"]
+_data = PackedByteArray("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")
 size_override = Vector2(480, 288)
 
 [sub_resource type="Animation" id="Animation_yc8uf"]
 length = 0.6
-loop_mode = 1
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -25,6 +28,66 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
 "update": 1,
 "values": [1, 2, 3, 4, 5, 6]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:damage")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [1, 1]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox:knockback")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(50, -100), Vector2(50, -100)]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox:monitoring")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, true]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(48, 16), Vector2(48, 16)]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05), Vector2(1e-05, 1e-05)]
 }
 
 [sub_resource type="Animation" id="Animation_mxswb"]
@@ -43,25 +106,129 @@ tracks/0/keys = {
 "values": [0]
 }
 
+[sub_resource type="Animation" id="Animation_bulmw"]
+length = 0.1
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [7]
+}
+
+[sub_resource type="Animation" id="Animation_t0m6b"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Hitbox:damage")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Hitbox:knockback")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Hitbox:monitoring")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Hitbox/CollisionShape2D:position")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Hitbox/CollisionShape2D:rotation")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("Hitbox/CollisionShape2D:scale")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1e-05, 1e-05)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_chjxl"]
 _data = {
 &"Attack 1": SubResource("Animation_yc8uf"),
-&"Combat Idle": SubResource("Animation_mxswb")
+&"Combat Idle": SubResource("Animation_mxswb"),
+&"RESET": SubResource("Animation_t0m6b"),
+&"Unsteady": SubResource("Animation_bulmw")
 }
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_yc8uf"]
+
+[sub_resource type="BlackboardPlan" id="BlackboardPlan_chjxl"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_t0m6b"]
+radius = 1.6e+06
+height = 3.2e+06
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_bulmw"]
+height = 48.0
 
 [node name="CharacterBody2D" instance=ExtResource("1_v0p8e")]
 script = ExtResource("2_yc8uf")
 
 [node name="CollisionShape2D" parent="." index="0"]
 position = Vector2(0, 8)
-shape = SubResource("RectangleShape2D_v0p8e")
+shape = SubResource("CapsuleShape2D_chjxl")
 
 [node name="Sprite2D" parent="." index="1"]
 texture_filter = 1
-texture = SubResource("PortableCompressedTexture2D_v0p8e")
+texture = SubResource("PortableCompressedTexture2D_chjxl")
 hframes = 3
 vframes = 3
-frame = 2
+frame = 7
 metadata/_aseprite_wizard_interface_config_ = {
 "layer_section": true,
 "pending_changes": {}
@@ -81,31 +248,38 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://Assets/Enemy/Swordman/Swordman.aseprite",
 "source_uid": 1638755942909755458
 }
-metadata/_aseprite_wizard_source_file_hash_ = "5ef797976b1b934a3fc27969e6e8f1b7"
+metadata/_aseprite_wizard_source_file_hash_ = "175ed0c30670d1992cc082c1126beb60"
 
 [node name="AnimationPlayer" parent="." index="2"]
 libraries = {
 &"": SubResource("AnimationLibrary_chjxl")
 }
 
-[node name="PatrolHSM" type="LimboHSM" parent="LimboHSM" index="0"]
+[node name="Patrol" type="BTState" parent="LimboHSM" index="0"]
+blackboard_plan = SubResource("BlackboardPlan_yc8uf")
+behavior_tree = ExtResource("3_chjxl")
 
-[node name="EnemyIdleState" type="LimboState" parent="LimboHSM/PatrolHSM" index="0"]
-
-[node name="EnemyMoveState" type="LimboState" parent="LimboHSM/PatrolHSM" index="1"]
-
-[node name="HostileHSM" type="LimboHSM" parent="LimboHSM" index="1"]
-
-[node name="EnemyApproachState" type="LimboState" parent="LimboHSM/HostileHSM" index="0"]
-
-[node name="EnemyAttackState" type="LimboState" parent="LimboHSM/HostileHSM" index="1"]
-
-[node name="BTPlayer" parent="." index="4"]
+[node name="Hostile" type="BTState" parent="LimboHSM" index="1"]
+blackboard_plan = SubResource("BlackboardPlan_chjxl")
 behavior_tree = ExtResource("2_mxswb")
 
-[node name="Hitbox" parent="." index="5"]
-position = Vector2(0, 8)
+[node name="Stagger" type="LimboState" parent="LimboHSM" index="2" node_paths=PackedStringArray("_animationPlayer")]
+script = ExtResource("5_5ppvl")
+_animationPlayer = NodePath("../../AnimationPlayer")
 
-[node name="Hurtbox" parent="." index="6"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" index="0"]
+scale = Vector2(1e-05, 1e-05)
+shape = SubResource("CapsuleShape2D_t0m6b")
+
+[node name="Hurtbox" parent="." index="5"]
+monitoring = true
+monitorable = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox" index="0"]
 position = Vector2(0, 8)
-scale = Vector2(1, 3)
+shape = SubResource("CapsuleShape2D_bulmw")
+
+[node name="Health" parent="." index="6" instance=ExtResource("5_bulmw")]
+
+[node name="Posture" parent="." index="7" instance=ExtResource("6_t0m6b")]
+maxPosture = 1

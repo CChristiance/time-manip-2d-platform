@@ -1,4 +1,4 @@
-[gd_resource type="BehaviorTree" load_steps=10 format=3 uid="uid://6w7y75qxjrn8"]
+[gd_resource type="BehaviorTree" load_steps=25 format=3 uid="uid://6w7y75qxjrn8"]
 
 [ext_resource type="Script" uid="uid://clx3y1y3wk7lw" path="res://ai/tasks/conditions/InRange.cs" id="1_cmx1y"]
 [ext_resource type="Script" uid="uid://dqmpgdiwv2ip1" path="res://ai/tasks/actions/GetFirstInGroup.cs" id="2_oewvc"]
@@ -6,29 +6,92 @@
 
 [sub_resource type="BlackboardPlan" id="BlackboardPlan_oewvc"]
 
-[sub_resource type="BTAction" id="BTAction_ttau1"]
+[sub_resource type="BTAction" id="BTAction_oewvc"]
 script = ExtResource("2_oewvc")
 group = &"player"
 outputVar = &"target"
 
-[sub_resource type="BTAction" id="BTAction_w75fm"]
+[sub_resource type="BTCondition" id="BTCondition_ttau1"]
+script = ExtResource("1_cmx1y")
+distanceMin = 75.0
+distanceMax = 500.0
+targetVar = &"target"
+
+[sub_resource type="BBNode" id="BBNode_ttau1"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_w75fm"]
+animation_player = SubResource("BBNode_ttau1")
+animation_name = &"Combat Idle"
+
+[sub_resource type="BTAction" id="BTAction_ttau1"]
 script = ExtResource("2_ttau1")
 targetVar = &"target"
 speedVar = &"speed"
-approachDistance = 100.0
+approachDistance = 75.0
 
-[sub_resource type="BTSequence" id="BTSequence_a5phw"]
-children = [SubResource("BTAction_ttau1"), SubResource("BTAction_w75fm")]
+[sub_resource type="BTSequence" id="BTSequence_w75fm"]
+custom_name = "Pursue"
+children = [SubResource("BTAction_oewvc"), SubResource("BTCondition_ttau1"), SubResource("BTPlayAnimation_w75fm"), SubResource("BTAction_ttau1")]
 
-[sub_resource type="BTCondition" id="BTCondition_cmx1y"]
-_enabled = false
+[sub_resource type="BBNode" id="BBNode_w75fm"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_a5phw"]
+animation_player = SubResource("BBNode_w75fm")
+animation_name = &"Combat Idle"
+
+[sub_resource type="BTAction" id="BTAction_w75fm"]
+script = ExtResource("2_oewvc")
+group = &"player"
+outputVar = &"target"
+
+[sub_resource type="BTCondition" id="BTCondition_a5phw"]
 script = ExtResource("1_cmx1y")
 distanceMin = 0.0
-distanceMax = 1000.0
-targetVar = "Player"
+distanceMax = 100.0
+targetVar = &"target"
+
+[sub_resource type="BBNode" id="BBNode_gc0sg"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_1vavf"]
+animation_player = SubResource("BBNode_gc0sg")
+animation_name = &"Attack 1"
+
+[sub_resource type="BBNode" id="BBNode_a5phw"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTAwaitAnimation" id="BTAwaitAnimation_gc0sg"]
+animation_player = SubResource("BBNode_a5phw")
+animation_name = &"Attack 1"
+
+[sub_resource type="BBNode" id="BBNode_1vavf"]
+resource_name = "AnimationPlayer"
+saved_value = NodePath("AnimationPlayer")
+
+[sub_resource type="BTPlayAnimation" id="BTPlayAnimation_s4uj7"]
+animation_player = SubResource("BBNode_1vavf")
+animation_name = &"RESET"
+
+[sub_resource type="BTSequence" id="BTSequence_gc0sg"]
+custom_name = "Attack"
+children = [SubResource("BTAction_w75fm"), SubResource("BTCondition_a5phw"), SubResource("BTPlayAnimation_1vavf"), SubResource("BTAwaitAnimation_gc0sg"), SubResource("BTPlayAnimation_s4uj7")]
+
+[sub_resource type="BTCooldown" id="BTCooldown_1vavf"]
+children = [SubResource("BTSequence_gc0sg")]
+duration = 1.0
+
+[sub_resource type="BTSequence" id="BTSequence_s4uj7"]
+custom_name = "Combat range"
+children = [SubResource("BTPlayAnimation_a5phw"), SubResource("BTCooldown_1vavf")]
 
 [sub_resource type="BTSelector" id="BTSelector_w75fm"]
-children = [SubResource("BTSequence_a5phw"), SubResource("BTCondition_cmx1y")]
+children = [SubResource("BTSequence_w75fm"), SubResource("BTSequence_s4uj7")]
 
 [resource]
 blackboard_plan = SubResource("BlackboardPlan_oewvc")

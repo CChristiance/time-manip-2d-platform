@@ -20,12 +20,12 @@ public partial class EnemyHurtState : LimboState
         timer = hitstun;
         if (enemy.Velocity.X < 0)
         {
-            GD.Print(enemy.Velocity.X);
+            // GD.Print(enemy.Velocity.X);
             _animationPlayer.Play("Hurt Front");
         }
         else
         {
-            GD.Print(enemy.Velocity.X);
+            // GD.Print(enemy.Velocity.X);
             _animationPlayer.Play("Hurt Back");
         }
     }

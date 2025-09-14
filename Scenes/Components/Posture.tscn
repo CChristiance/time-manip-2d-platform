@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://n2jy0qqr7fx8"]
+
+[ext_resource type="Script" uid="uid://ytorji4v8dmv" path="res://Scenes/Components/Posture.cs" id="1_l1uot"]
+
+[node name="Posture" type="Node2D"]
+script = ExtResource("1_l1uot")

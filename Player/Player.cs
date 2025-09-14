@@ -17,6 +17,7 @@ public partial class Player : CharacterBody2D
 
     private AnimationPlayer _animationPlayer;
     private Sprite2D _sprite;
+    private Health _health;
 
     // Onready state machine variables
     private LimboHsm _hsm;
@@ -25,6 +26,7 @@ public partial class Player : CharacterBody2D
     private LimboState _idleState;
     private LimboState _walkState;
     private LimboState _runState;
+    private LimboState _gblockState;
 
     private LimboHsm _airHsm;
     private LimboState _fallState;
@@ -55,9 +57,11 @@ public partial class Player : CharacterBody2D
         _slideState = GetNode<LimboState>("LimboHSM/SlideState");
         _dashState = GetNode<LimboState>("LimboHSM/DashState");
         _wallState = GetNode<LimboState>("LimboHSM/WallState");
+        _gblockState = GetNode<LimboState>("LimboHSM/GBlockState");
 
         _animationPlayer = GetNode<AnimationPlayer>("AnimationPlayer");
         _sprite = GetNode<Sprite2D>("Sprite2D");
+        _health = GetNode<Health>("Health");
         gravity = Global.Instance.globalGravity;
         AddToGroup("player");
         _InitStateMachine();
@@ -78,6 +82,7 @@ public partial class Player : CharacterBody2D
         _hsm.AddTransition(_groundHsm, _dashState, "dash");
         _hsm.AddTransition(_airHsm, _dashState, "dash");
         _hsm.AddTransition(_airHsm, _wallState, "wall");
+        _hsm.AddTransition(_groundHsm, _gblockState, "block");
 
         _airHsm.AddTransition(_jumpState, _fallState, "fall");
         _airHsm.AddTransition(_airHsm.ANYSTATE, _stompState, "stomp");
@@ -116,6 +121,10 @@ public partial class Player : CharacterBody2D
         {
             _hsm.Dispatch("stomp");
         }
+        else if (@event.IsActionPressed("block"))
+        {
+            _hsm.Dispatch("block");
+        }
         else if (@event.IsActionPressed("dash"))
         {
             _hsm.Dispatch("dash");
@@ -124,6 +133,11 @@ public partial class Player : CharacterBody2D
         {
             // _hsm.Dispatch("rewind");
         }
+    }
 
+    public void OnHit(int damage, int stagger, Vector2 knockback)
+    {
+        _health.Damage(damage);
+        Velocity = knockback;
     }
 }

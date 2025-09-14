@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://cfhkl1wiyukt1"
-path="res://.godot/imported/Yarrow.png-76f774c016a13df580ae3f0e3e9a7114.ctex"
+path="res://.godot/imported/Yarrow.png-adf755741a1a357e936d99ad968f77ee.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Player/Assets/Sprites/Yarrow.png"
-dest_files=["res://.godot/imported/Yarrow.png-76f774c016a13df580ae3f0e3e9a7114.ctex"]
+source_file="res://Player/Assets/Yarrow.png"
+dest_files=["res://.godot/imported/Yarrow.png-adf755741a1a357e936d99ad968f77ee.ctex"]
 
 [params]
 
